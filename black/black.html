@@ -1,0 +1,78 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>&lrm;</title>
+        <style type="text/css">
+            .center {
+                position: absolute;
+                top: 50%;
+                left:50%;
+                
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
+            .colorLabel{
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .hidden {
+                visibility: hidden;
+            }
+        </style>
+    </head>
+    <body style="background-color: black;">
+        <!-- <input type="color" oninput="" style="position: absolute; top: 50%; left:50%; transform: translate(-50%, -50%);"> -->
+        
+        <script type="text/javascript">
+
+            // No idea
+            // https://stackoverflow.com/a/54569758/10459427
+            const invertHex = (hex) => {
+                return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substr(1).toUpperCase()
+            }
+            
+            const toggleClass = (element, className) => {
+                if(element.classList.contains(className))
+                    element.classList.remove(className);
+                else
+                    element.classList.add(className);
+            }
+
+
+            const center = document.createElement('div');
+            center.style.display = "none";
+            center.classList.add('center');
+
+            
+            const colorLabel = document.createElement('span');
+            colorLabel.classList.add('colorLabel');
+            colorLabel.style.color = "#FFF";
+            colorLabel.innerText = "#FFFFFF";
+            center.append(colorLabel);
+
+            const colorPicker = document.createElement('input');
+            colorPicker.type = "color";
+            colorPicker.addEventListener('input', (e) => {
+                document.body.style.backgroundColor = colorPicker.value;
+                colorLabel.innerText = colorPicker.value.toLocaleUpperCase();
+                colorLabel.style.color = '#'+invertHex(colorPicker.value.substr(1))
+            });
+            center.append(colorPicker);
+
+
+
+            document.body.append(center);
+            document.body.addEventListener("click", () => {
+                center.style.display = center.style.display === "none" ? "unset" : "none";
+            })
+
+
+            document.body.addEventListener('keydown', (e) => {
+                if(e.key !== 'e') return;
+                toggleClass(center, 'hidden');
+            });
+        </script>
+    </body>
+</html>
