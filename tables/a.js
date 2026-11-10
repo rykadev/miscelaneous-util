@@ -799,21 +799,6 @@ function createTable() {
     }
     window.updateRowIndexes = updateRowIndexes;
 
-    // let b = document.createElement("button");
-    // b.innerText = "+";
-    // b.style.width = "100%";
-    // b.addEventListener("click", () => {
-    //     const arr = [...tbody.querySelectorAll("tr.mytr")].map((tr) =>
-    //         [...tr.querySelectorAll("td")]
-    //             .slice(0, 3)
-    //             .map((td) => td.textContent),
-    //     );
-    //     arr.push(["", "", ""]);
-
-    //     localStorage.setItem("table", JSON.stringify(arr));
-    //     createTable();
-    // });
-    // document.body.appendChild(b);
 
     const BASE_URL = "https://mantledb.sh/v2";
     const NAMESPACE = "figuretables"; // Change this to your custom namespace
@@ -887,34 +872,22 @@ function createTable() {
     );
     containerUserPass.appendChild(textPassword);
 
-    async function getId(username, password) {
-        const encoder = new TextEncoder();
 
-        const key = await crypto.subtle.importKey(
-            "raw",
-            encoder.encode(password),
-            "PBKDF2",
-            false,
-            ["deriveBits"],
-        );
+    // Pure JavaScript PBKDF2 implementation (No Web Crypto required)
+    function getId(username, password) {
+        const salt = `my-app-v1:${username.trim().toLowerCase()}`;
+        
+        // Compute PBKDF2 using CryptoJS
+        const cfg = {
+            keySize: 256 / 32, // CryptoJS expects key size in 32-bit words (256 bits = 8 words)
+            iterations: 600000,
+            hasher: CryptoJS.algo.SHA256
+        };
+        
+        const derivedKey = CryptoJS.PBKDF2(password, salt, cfg);
 
-        const bits = await crypto.subtle.deriveBits(
-            {
-                name: "PBKDF2",
-                salt: encoder.encode(
-                    `my-app-v1:${username.trim().toLowerCase()}`,
-                ),
-                iterations: 600000,
-                hash: "SHA-256",
-            },
-            key,
-            256,
-        );
-
-        return [...new Uint8Array(bits)]
-            // .slice(0, stre)
-            .map((b) => b.toString(16).padStart(2, "0"))
-            .join("");
+        // CryptoJS returns a WordArray object, converting it to a hex string is built-in
+        return derivedKey.toString(CryptoJS.enc.Hex);
     }
 
     const containerButtons = document.createElement("div");
