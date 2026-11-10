@@ -887,7 +887,7 @@ function createTable() {
     );
     containerUserPass.appendChild(textPassword);
 
-    async function getId(username, password, stre = 64) {
+    async function getId(username, password) {
         const encoder = new TextEncoder();
 
         const key = await crypto.subtle.importKey(
@@ -912,7 +912,7 @@ function createTable() {
         );
 
         return [...new Uint8Array(bits)]
-            .slice(0, stre)
+            // .slice(0, stre)
             .map((b) => b.toString(16).padStart(2, "0"))
             .join("");
     }
@@ -927,7 +927,7 @@ function createTable() {
         try {
             buttonSave.innerText = "...";
             await dbSave(
-                getId(textUsername.value, textPassword.value),
+                await getId(textUsername.value, textPassword.value),
                 fromTable(),
             );
         } catch (e) {
@@ -944,7 +944,7 @@ function createTable() {
         try {
             buttonLoad.innerText = "...";
             const data = await dbLoad(
-                getId(textUsername.value, textPassword.value),
+                await getId(textUsername.value, textPassword.value),
             );
             if (data) {
                 localStorage.setItem("table", JSON.stringify(data));
