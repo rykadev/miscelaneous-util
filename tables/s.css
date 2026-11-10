@@ -1,0 +1,104 @@
+[data-microtip-position] {
+    --microtip-transition-delay: 0s;
+}
+[data-microtip-position]::before,
+[data-microtip-position]::after {
+    transition: none !important;
+}
+[aria-label][data-microtip-position="top"]::after {
+    margin-bottom: 5px !important;
+}
+[aria-label][data-microtip-position="top"]::before {
+    margin-bottom: 0 !important;
+}
+
+body.dragging [data-microtip-position]::before,
+body.dragging [data-microtip-position]::after {
+    display: none !important;
+}
+[aria-label][data-microtip-position]:focus::before,
+[aria-label][data-microtip-position]:focus::after {
+    visibility: hidden;
+    opacity: 0;
+}
+
+body {
+    margin: 0;
+    --sticky-b: 48px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.flex{
+    display: flex;
+}
+.flex > * {
+    flex: 1;
+}
+
+.mytr:nth-child(odd) { 
+    --add: 1.0;
+}
+.mytr:nth-child(even) { 
+    --add: 1.5; 
+}
+
+.mytr{
+    height: 27px;
+    --perc: calc(mod(var(--row) / var(--total) + var(--add),1));
+
+    --bg: calc(var(--perc)*360);
+    --bgColor: oklch(.8 .18 var(--bg));
+    background-color: var(--bgColor);
+}
+.mytr:hover{
+    background-color: color-mix(in oklab, var(--bgColor) 75%, white);
+    
+}
+.bolder{
+    border-right: 2px solid #000;
+}
+
+tr > td:nth-child(3) {
+    overflow: hidden;
+    max-width: 30px;
+    text-wrap: nowrap;
+}
+
+body {
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+a {
+    padding: 0px 4px;
+    text-decoration: none;
+    /* font-weight: bold; */
+}
+
+/* thead {
+    position: sticky;
+    top: 0;
+    background-color: white;
+} */
+
+.sticky-header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    overflow: hidden;
+    background-color: white;
+    max-height: var(--sticky-b);
+}
+
+.sticky-header-wrapper table,
+table {
+    border-collapse: collapse;
+    /* width: 100%; */
+}
+thead{
+    border-bottom: 2px solid #000;
+}

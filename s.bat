@@ -1,0 +1,1 @@
+pnpm live-server
