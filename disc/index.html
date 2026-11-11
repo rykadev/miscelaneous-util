@@ -1,0 +1,949 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+<!-- <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"> -->
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<title>Discord Clone</title>
+
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #313338;
+    color: #dbdee1;
+    font: 14px Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+}
+
+button, textarea, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: 0;
+}
+
+#sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: #2b2d31;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar header {
+    padding: 18px;
+    font-size: 17px;
+    font-weight: bold;
+    border-bottom: 1px solid #1e1f22;
+}
+
+#channels {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 8px;
+}
+
+.channel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px;
+    margin-bottom: 2px;
+    border-radius: 5px;
+    color: #949ba4;
+    cursor: pointer;
+}
+
+.channel:hover {
+    background: #35373c;
+    color: #dbdee1;
+}
+
+.channel.active {
+    background: #404249;
+    color: white;
+}
+
+.channel::before {
+    content: "#";
+    font-size: 20px;
+    color: #80848e;
+}
+
+#add-channel {
+    margin: 8px;
+    padding: 10px;
+    background: transparent;
+    color: #949ba4;
+    text-align: left;
+    border-radius: 5px;
+}
+
+#add-channel:hover {
+    background: #35373c;
+    color: white;
+}
+
+#main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#channel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #25262a;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+}
+
+.message {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+}
+
+.message:hover {
+    background: #2e3035;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #5865f2;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+    color: white;
+}
+
+.message-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.message-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.username {
+    font-weight: bold;
+    color: white;
+}
+
+.timestamp {
+    font-size: 11px;
+    color: #949ba4;
+}
+
+.message-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 0px;
+}
+
+.message:hover .message-actions {
+    /* display: flex; */
+}
+
+.message-actions button {
+    color: #b5bac1;
+    background: transparent;
+    padding: 4px 7px;
+    border-radius: 4px;
+}
+
+.message-actions button:hover {
+    background: #404249;
+    color: white;
+}
+
+.message-body {
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.message-body p {
+    margin: 0 0 8px;
+}
+
+.message-body p:last-child {
+    margin-bottom: 0;
+}
+
+.message-body img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.message-body pre {
+    background: #1e1f22;
+    border: 1px solid #3f4147;
+    border-radius: 6px;
+    padding: 12px;
+    overflow-x: auto;
+}
+
+.message-body pre code {
+    font-family: Consolas, monospace;
+    font-size: 13px;
+}
+
+.message-body code:not(pre code) {
+    background: #1e1f22;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.message-body blockquote {
+    border-left: 4px solid #4e5058;
+    margin: 8px 0;
+    padding: 2px 12px;
+    color: #b5bac1;
+}
+
+.message-body table {
+    border-collapse: collapse;
+}
+
+.message-body td,
+.message-body th {
+    border: 1px solid #4e5058;
+    padding: 6px 10px;
+}
+
+.message-body a {
+    color: #00a8fc;
+}
+
+.message-body hr {
+    border: 0;
+    border-top: 1px solid #4e5058;
+}
+
+.edit-area {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    padding: 10px;
+    background: #383a40;
+    color: white;
+    border: 1px solid #5865f2;
+    border-radius: 5px;
+    outline: none;
+}
+
+.edit-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.edit-buttons button {
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.save {
+    background: #5865f2;
+    color: white;
+}
+
+.cancel {
+    background: #4e5058;
+    color: white;
+}
+
+#composer {
+    padding: 0 24px 24px;
+}
+
+#composer-inner {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    background: #383a40;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+#input {
+    flex: 1;
+    resize: none;
+    max-height: 250px;
+    min-height: 24px;
+    background: transparent;
+    color: white;
+    border: 0;
+    outline: none;
+}
+
+#input::placeholder {
+    color: #949ba4;
+}
+
+#send {
+    background: #5865f2;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 5px;
+}
+
+#send:hover {
+    background: #4752c4;
+}
+
+.empty {
+    color: #949ba4;
+    text-align: center;
+    margin-top: 80px;
+}
+/* Header */
+#channel-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#menu-toggle {
+    display: none;
+    background: transparent;
+    color: white;
+    font-size: 22px;
+    padding: 5px;
+}
+
+/* Backdrop */
+#sidebar-backdrop {
+    display: none;
+}
+
+@media (max-width: 650px) {
+    body {
+        overflow: hidden;
+    }
+
+    #sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: min(82vw, 300px);
+        z-index: 20;
+        transform: translateX(-100%);
+        transition: transform 180ms ease;
+        box-shadow: 5px 0 20px #0005;
+    }
+
+    #sidebar.open {
+        transform: translateX(0);
+    }
+
+    #sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 19;
+        background: #0008;
+    }
+
+    #sidebar.open ~ #sidebar-backdrop {
+        display: block;
+    }
+
+    #main {
+        width: 100%;
+        height: 100dvh;
+    }
+
+    #menu-toggle {
+        display: block;
+    }
+
+    #channel-header {
+        min-height: 56px;
+        padding: 10px 14px;
+    }
+
+    #messages {
+        padding: 12px;
+        min-height: 0;
+    }
+
+    .message {
+        gap: 10px;
+    }
+
+    .avatar {
+        width: 34px;
+        height: 34px;
+        font-size: 13px;
+    }
+
+    /* Touchscreens don't have hover */
+    .message-actions {
+        display: flex;
+    }
+
+    .message-actions button {
+        padding: 8px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+
+    #composer {
+        padding: 0 10px calc(10px + env(safe-area-inset-bottom));
+    }
+
+    #composer-inner {
+        padding: 9px;
+        gap: 6px;
+    }
+
+    #input {
+        font-size: 16px;
+        min-width: 0;
+    }
+
+    #send {
+        padding: 10px 14px;
+    }
+
+    .message-body pre {
+        max-width: 100%;
+    }
+
+    .edit-area {
+        font-size: 16px;
+    }
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#main {
+    min-height: 0;
+}
+
+#messages {
+    min-height: 0;
+}
+
+#sidebar {
+    touch-action: pan-y;
+}
+html, body {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+#main {
+    position: fixed;
+    left: 240px;
+    right: 0;
+    top: var(--viewport-top, 0px);
+    height: var(--viewport-height, 100dvh);
+
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#messages {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    align-content: flex-end;
+}
+
+#composer {
+    flex-shrink: 0;
+    margin-bottom: 10px;
+    padding-bottom: 0;
+}
+
+@media (max-width: 650px) {
+    #composer {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    #main {
+        left: 0px;
+    }
+}
+
+.channel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.channel-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.delete-channel {
+    background: transparent;
+    color: #949ba4;
+    padding: 5px;
+    border-radius: 4px;
+    opacity: 0;
+}
+
+.channel:hover .delete-channel,
+.channel.active .delete-channel {
+    opacity: 1;
+}
+
+.delete-channel:hover {
+    background: #da373c;
+    color: white;
+}
+
+@media (max-width: 650px) {
+    .delete-channel {
+        opacity: 1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<aside id="sidebar">
+    <header>My Discord</header>
+    <div id="channels"></div>
+    <button id="add-channel">＋ Create channel</button>
+</aside>
+<div id="sidebar-backdrop"></div>
+<main id="main">
+    <header id="channel-header">
+    <button id="menu-toggle">☰</button>
+    <span id="channel-name"></span>
+</header>
+
+    <section id="messages"></section>
+
+    <footer id="composer">
+        <div id="composer-inner">
+            <textarea id="input" rows="1"
+                placeholder="Message..."></textarea>
+            <button id="send">Send</button>
+        </div>
+    </footer>
+</main>
+
+<script>
+
+window.addEventListener("error", event => {
+    alert("JS Error: " + event.message);
+});
+
+window.addEventListener("unhandledrejection", event => {
+    alert("Promise Error: " + event.reason);
+});
+
+
+const STORAGE_KEY = "discord-clone";
+
+const $ = selector => document.querySelector(selector);
+
+const escapeHTML = value => String(value).replace(
+    /[&<>"']/g,
+    char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]
+);
+
+const createId = () =>
+    globalThis.crypto?.randomUUID?.() ??
+    `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+const defaultState = {
+    activeChannel: null,
+    channels: [
+        {
+            id: createId(),
+            name: "general",
+            messages: []
+        }
+    ]
+};
+
+function load() {
+    try {
+        const data = JSON.parse(
+            localStorage.getItem(STORAGE_KEY)
+        );
+
+        if (
+            data &&
+            Array.isArray(data.channels) &&
+            data.channels.length
+        ) {
+            return data;
+        }
+    } catch (error) {
+        console.error("Failed to load messages:", error);
+    }
+
+    return defaultState;
+}
+
+let state = load();
+
+if (!state.activeChannel ||
+    !state.channels.some(c => c.id === state.activeChannel)) {
+    state.activeChannel = state.channels[0].id;
+}
+
+function save() {
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function getChannel() {
+    return state.channels.find(
+        c => c.id === state.activeChannel
+    );
+}
+
+// Markdown configuration
+marked.setOptions({
+    gfm: true,
+    breaks: true
+});
+
+// Render everything
+function render() {
+    renderChannels();
+    renderMessages();
+    save();
+}
+
+function renderChannels() {
+    $("#channels").innerHTML = state.channels.map(channel => `
+        <div class="channel ${
+            channel.id === state.activeChannel ? "active" : ""
+        }" data-channel="${channel.id}">
+            <span class="channel-name">
+                ${escapeHTML(channel.name)}
+            </span>
+
+            <button class="delete-channel"
+                data-delete-channel="${channel.id}"
+                title="Delete channel">🗑</button>
+        </div>
+    `).join("");
+
+    $("#channel-name").textContent =
+        "# " + getChannel().name;
+}
+function renderMessages() {
+    const channel = getChannel();
+    const container = $("#messages");
+
+    container.innerHTML = channel.messages.map(message => `
+        <article class="message" data-message="${message.id}">
+            <div class="avatar">Y</div>
+
+            <div class="message-content">
+                <div class="message-header">
+                    <span class="username">You</span>
+                    <span class="timestamp">
+                        ${new Date(message.createdAt).toLocaleString()}
+                        ${message.edited ? "(edited)" : ""}
+                    </span>
+
+                    <div class="message-actions">
+                        <button data-action="edit" title="Edit">✎</button>
+                        <button data-action="delete" title="Delete">🗑</button>
+                    </div>
+                </div>
+
+                <div class="message-body">
+                    ${marked.parse(message.content)}
+                </div>
+            </div>
+        </article>
+    `).join("");
+
+    container.querySelectorAll("pre code").forEach(code => {
+        hljs.highlightElement(code);
+    });
+
+    if (!channel.messages.length) {
+        container.innerHTML = `
+            <div class="empty">
+                <h2>Welcome to #${escapeHTML(channel.name)}</h2>
+                This is the beginning of this channel.
+            </div>
+        `;
+    }
+
+    container.scrollTop = container.scrollHeight;
+}
+
+// Create channel
+$("#add-channel").addEventListener("click", () => {
+    const name = prompt("Channel name:");
+
+    if (!name || !name.trim()) return;
+
+    const channel = {
+        id: createId(),
+        name: name.trim(),
+        messages: []
+    };
+
+    state.channels.push(channel);
+    state.activeChannel = channel.id;
+
+    render();
+});
+
+// Switch channel
+$("#channels").addEventListener("click", event => {
+    const deleteButton = event.target.closest("[data-delete-channel]");
+
+    if (deleteButton) {
+        event.stopPropagation();
+
+        if (state.channels.length <= 1) {
+            alert("You cannot delete the last channel.");
+            return;
+        }
+
+        const id = deleteButton.dataset.deleteChannel;
+        const channel = state.channels.find(c => c.id === id);
+
+        if (!confirm(`Delete #${channel.name} and all its messages?`))
+            return;
+
+        state.channels = state.channels.filter(c => c.id !== id);
+
+        if (state.activeChannel === id) {
+            state.activeChannel = state.channels[0].id;
+        }
+
+        sidebar.classList.remove("open");
+        render();
+        return;
+    }
+
+    const element = event.target.closest("[data-channel]");
+    if (!element) return;
+
+    state.activeChannel = element.dataset.channel;
+    sidebar.classList.remove("open");
+    render();
+});
+
+// Send message
+function sendMessage() {
+    const input = $("#input");
+    const content = input.value;
+
+    if (!content.trim()) return;
+
+    getChannel().messages.push({
+        id: createId(),
+        content,
+        createdAt: Date.now(),
+        edited: false
+    });
+
+    input.value = "";
+    input.style.height = "auto";
+
+    render();
+    input.focus();
+}
+
+$("#send").addEventListener("click", sendMessage);
+
+$("#input").addEventListener("keydown", event => {
+    if (
+        event.key === "Enter" &&
+        !event.shiftKey &&
+        !window.matchMedia("(pointer: coarse)").matches
+    ) {
+        event.preventDefault();
+        sendMessage();
+    }
+});
+
+// Auto resize composer
+$("#input").addEventListener("input", event => {
+    const textarea = event.target;
+    textarea.style.height = "auto";
+    textarea.style.height =
+        Math.min(textarea.scrollHeight, 250) + "px";
+});
+
+// Edit and delete messages
+$("#messages").addEventListener("click", event => {
+    const button = event.target.closest("[data-action]");
+    if (!button) return;
+
+    const article = button.closest("[data-message]");
+    const messageId = article.dataset.message;
+
+    const channel = getChannel();
+    const message = channel.messages.find(
+        m => m.id === messageId
+    );
+
+    if (!message) return;
+
+    const action = button.dataset.action;
+
+    if (action === "delete") {
+        // if (!confirm("Delete this message?")) return;
+
+        channel.messages = channel.messages.filter(
+            m => m.id !== messageId
+        );
+
+        render();
+    }
+
+    if (action === "edit") {
+        const body = article.querySelector(".message-body");
+
+        body.innerHTML = `
+            <textarea class="edit-area"></textarea>
+
+            <div class="edit-buttons">
+                <button class="save" data-action="save">Save</button>
+                <button class="cancel" data-action="cancel">Cancel</button>
+            </div>
+        `;
+
+        const textarea = body.querySelector("textarea");
+        textarea.value = message.content;
+        textarea.focus();
+    }
+
+    if (action === "save") {
+        const textarea = article.querySelector("textarea");
+
+        if (!textarea.value.trim()) return;
+
+        message.content = textarea.value;
+        message.edited = true;
+
+        render();
+    }
+
+    if (action === "cancel") {
+        render();
+    }
+});
+const sidebar = $("#sidebar");
+
+$("#menu-toggle").addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+});
+
+$("#sidebar-backdrop").addEventListener("click", () => {
+    sidebar.classList.remove("open");
+});
+
+// Close drawer after selecting a channel
+$("#channels").addEventListener("click", event => {
+    if (event.target.closest("[data-channel]")) {
+        sidebar.classList.remove("open");
+    }
+});
+
+const EDGE_WIDTH = 35;
+const SWIPE_THRESHOLD = 60;
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener("touchstart", event => {
+    const touch = event.touches[0];
+
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+}, { passive: true });
+
+document.addEventListener("touchend", event => {
+    const touch = event.changedTouches[0];
+
+    const dx = touch.clientX - touchStartX;
+    const dy = touch.clientY - touchStartY;
+
+    // Ignore vertical gestures
+    if (Math.abs(dx) < SWIPE_THRESHOLD) return;
+    if (Math.abs(dx) < Math.abs(dy) * 1.5) return;
+
+    // Swipe right from left edge: open
+    if (
+        dx > 0 &&
+        touchStartX < EDGE_WIDTH &&
+        !sidebar.classList.contains("open")
+    ) {
+        sidebar.classList.add("open");
+    }
+
+    // Swipe left: close
+    if (
+        dx < 0 &&
+        sidebar.classList.contains("open")
+    ) {
+        sidebar.classList.remove("open");
+    }
+}, { passive: true });
+
+
+// Initial render
+render();
+</script>
+
+</body>
+</html>

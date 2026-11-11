@@ -1,221 +1,4 @@
 console.log(new Date());
-// document.addEventListener("keydown", (e) => {
-//     if (e.key.toLowerCase() === "o") {
-//         console.log("Seeting table");
-//         localStorage.setItem(
-//             "table",
-//             JSON.stringify([
-//                 ["アルベド t-most", "albedo t-most", ""],
-//                 ["初音 ミク t-most", "Hatsune Miku t-most", ""],
-//                 ["", "", ""],
-//                 ["", "", ""],
-//                 [
-//                     "アストルフォ",
-//                     "Astolfo",
-//                     "https://myfigurecollection.net/entry/81766",
-//                 ],
-//                 [
-//                     "アルトリア・ペンドラゴン",
-//                     "Altria Pendragon",
-//                     "https://myfigurecollection.net/entry/1654",
-//                 ],
-//                 ["フェイト", "Fate", ""],
-//                 ["フェイト", "Fate", ""],
-//                 ["フェイト", "Fate < 6000", ""],
-//                 [
-//                     "アルティメットまどか",
-//                     "Ultimate Madoka",
-//                     "https://myfigurecollection.net/entry/38598",
-//                 ],
-//                 [
-//                     "ロキシー",
-//                     "Roxy",
-//                     "https://myfigurecollection.net/entry/122863",
-//                 ],
-//                 [
-//                     "ロキシー ・ミグルディア",
-//                     "Roxy Migurdia",
-//                     "https://myfigurecollection.net/entry/122863",
-//                 ],
-//                 [
-//                     "ニトクリス",
-//                     "Nitocris",
-//                     "https://myfigurecollection.net/entry/120212",
-//                 ],
-//                 [
-//                     "ジャンヌ・ダルク",
-//                     "Jeanne d'Arc",
-//                     "https://myfigurecollection.net/entry/107551",
-//                 ],
-//                 [
-//                     "ジャンヌ・ダルク [オルタ]",
-//                     "Jeanne d'Arc (Alter)",
-//                     "https://myfigurecollection.net/entry/107551",
-//                 ],
-//                 [
-//                     "マシュ・キリエライト",
-//                     "Mash Kyrielight",
-//                     "https://myfigurecollection.net/entry/87933",
-//                 ],
-//                 [
-//                     "スカサハ",
-//                     "Scáthach",
-//                     "https://myfigurecollection.net/entry/88034",
-//                 ],
-//                 [
-//                     "酒呑童子",
-//                     "Shuten Douji",
-//                     "https://myfigurecollection.net/entry/110133",
-//                 ],
-//                 [
-//                     "玉藻の前",
-//                     "Tamamo no Mae",
-//                     "https://myfigurecollection.net/entry/23053",
-//                 ],
-//                 [
-//                     "モードレッド",
-//                     "Mordred",
-//                     "https://myfigurecollection.net/entry/60272",
-//                 ],
-//                 [
-//                     "アルベド",
-//                     "Albedo",
-//                     "https://myfigurecollection.net/entry/88609",
-//                 ],
-//                 [
-//                     "夜刀神 十香",
-//                     "Yatogami Tohka",
-//                     "https://myfigurecollection.net/entry/37035",
-//                 ],
-//                 [
-//                     "時崎 狂三",
-//                     "Tokisaki Kurumi",
-//                     "https://myfigurecollection.net/entry/42167",
-//                 ],
-//                 ["1/4 FREEing", "1/4 FREEing", ""],
-//                 ["モナ", "Mona", "https://myfigurecollection.net/entry/214927"],
-//                 [
-//                     "モナ・メギストス",
-//                     "Mona Megistus",
-//                     "https://myfigurecollection.net/entry/214927",
-//                 ],
-//                 ["レム", "Rem", "https://myfigurecollection.net/entry/99093"],
-//                 [
-//                     "鬼レム -Crystal Dress Ver- 渋谷スクランブル",
-//                     "Demon Rem",
-//                     "https://myfigurecollection.net/item/1121990",
-//                 ],
-//                 ["", "", ""],
-//                 [
-//                     "ミーア モンスター娘のいる日常",
-//                     "Miia",
-//                     "https://myfigurecollection.net/entry/60608",
-//                 ],
-//                 ["", "", ""],
-//                 [
-//                     "渡我 被身子",
-//                     "Toga Himiko",
-//                     "https://myfigurecollection.net/entry/108465",
-//                 ],
-//                 [
-//                     "ジブリール",
-//                     "Jibril",
-//                     "https://myfigurecollection.net/entry/64373",
-//                 ],
-//                 [
-//                     "t-most 喜多川 海夢",
-//                     "Kitagawa Marin",
-//                     "https://myfigurecollection.net/entry/211310",
-//                 ],
-//                 ["t-most", "t-most", ""],
-//                 [
-//                     "イシュタル",
-//                     "Ishtar",
-//                     "https://myfigurecollection.net/entry/123125",
-//                 ],
-//                 [
-//                     "レミリア・スカーレット",
-//                     "Remilia Scarlet",
-//                     "https://myfigurecollection.net/entry/1743",
-//                 ],
-//                 [
-//                     "宝鐘 マリン",
-//                     "Hoshou Marine",
-//                     "https://myfigurecollection.net/entry/201375",
-//                 ],
-//                 ["ライザリン・シュタウト", "Reisalin Stout", ""],
-//                 ["", "", ""],
-//                 ["フェイト アルター", "Fate Alter", ""],
-//                 ["", "", ""],
-//                 ["1円～", "starting from 1 yen.", ""],
-//                 ["美少女", "Beautiful Girl Figures", ""],
-//                 ["", "", ""],
-//                 ["", "", ""],
-//                 [
-//                     "ロキシー コトブキヤ",
-//                     "Roxy Kotobukiya",
-//                     "https://myfigurecollection.net/item/1389961",
-//                 ],
-//                 [
-//                     "マシュ・キリエライト ストロンガー",
-//                     "Mash Kyrielight Stronger",
-//                     "",
-//                 ],
-//                 [
-//                     "アルトリア・ペンドラゴン アルター",
-//                     "Altria Pendragon Alter",
-//                     "https://myfigurecollection.net/item/287683",
-//                 ],
-//             ]),
-//         );
-//     }
-// });
-
-const range = (start, stop, step = 1) => {
-    if (stop === undefined) {
-        [start, stop] = [0, start];
-    }
-    return Array.from(
-        { length: Math.ceil((stop - start) / step) },
-        (_, i) => start + i * step,
-    );
-};
-
-// Calculate Euclidean distance between two RGB colors
-function colorDistance(c1, c2) {
-    const [r1, g1, b1] = parseColor(c1);
-    const [r2, g2, b2] = parseColor(c2);
-    return Math.sqrt(
-        Math.pow(r2 - r1, 2) + Math.pow(g2 - g1, 2) + Math.pow(b2 - b1, 2),
-    );
-}
-
-// Sort array greedily to maximize adjacent contrast
-function sortByHighestContrast(colors) {
-    if (colors.length <= 1) return [...colors];
-
-    const pool = [...colors];
-    const sorted = [pool.shift()]; // Start with the first color
-
-    while (pool.length > 0) {
-        const lastColor = sorted[sorted.length - 1];
-        let maxDist = -1;
-        let nextIndex = 0;
-
-        // Find the remaining color with the maximum distance from lastColor
-        for (let i = 0; i < pool.length; i++) {
-            const dist = colorDistance(lastColor, pool[i]);
-            if (dist > maxDist) {
-                maxDist = dist;
-                nextIndex = i;
-            }
-        }
-
-        sorted.push(pool.splice(nextIndex, 1)[0]);
-    }
-
-    return sorted;
-}
 
 function getLink(name, mfc) {
     if (!mfc) {
@@ -472,6 +255,26 @@ function createTable() {
         return links;
     }
 
+    const addColumnO = (getObj, group = "") => {
+        // addColumnS(Object.keys(obj), Object.values(obj), group);
+
+        let names;
+        data.forEach((n, i) => {
+            const obj = getObj(arr[i]);
+            names = Object.keys(obj);
+            const getValue = Object.values(obj);
+
+            n.push(
+                ...getValue.map(({ url, text }, i) =>
+                    url && text
+                        ? `<a href="${url}" aria-label="${[arr[i][1], names[i], group].join(" ").trim()}" data-microtip-position="top" role="tooltip">${text}</a>`
+                        : "",
+                ),
+            );
+        });
+        top2.push([group, names.length]);
+        ths.push(...names);
+    };
     const addColumnS = (getValue, names, group = "") => {
         addColumn(
             ([name_japanese, name, mfc]) =>
@@ -492,10 +295,10 @@ function createTable() {
     addColumnS(([, name, mfc]) => [{ url: mfc, text: "M" }], "MFC");
     addColumnS(([, name, mfc]) => [getLink(name, mfc)], "MFC");
 
-    addColumnS(
-        ([name_japanese]) => [
-            getBuyeeLink(name_japanese, isFigure, minPrice, maxPrice, "N"),
-            getBuyeeLink(
+    addColumnO(
+        ([name_japanese]) => ({
+            N: getBuyeeLink(name_japanese, isFigure, minPrice, maxPrice, "N"),
+            L: getBuyeeLink(
                 name_japanese,
                 isFigure,
                 minPrice,
@@ -503,7 +306,7 @@ function createTable() {
                 "L",
                 "price_asc",
             ),
-            getBuyeeLink(
+            H: getBuyeeLink(
                 name_japanese,
                 isFigure,
                 minPrice,
@@ -511,139 +314,95 @@ function createTable() {
                 "H",
                 "price_desc",
             ),
-        ],
-        ["N", "L", "H"],
+        }),
         "Buyee",
     );
 
-    addColumnS(
-        ([name_japanese, name, mfc]) => [
-            getDoorzoLink(name_japanese, minPrice, maxPrice, "N"),
-            getDoorzoLink(name_japanese, minPrice, maxPrice, "L", "price_asc"),
-            getDoorzoLink(name_japanese, minPrice, maxPrice, "H", "price_desc"),
-        ],
-        ["N", "L", "H"],
+    addColumnO(
+        ([name_japanese, name, mfc]) => ({
+            N: getDoorzoLink(name_japanese, minPrice, maxPrice, "N"),
+            L: getDoorzoLink(name_japanese, minPrice, maxPrice, "L", "price_asc"),
+            H : getDoorzoLink(name_japanese, minPrice, maxPrice, "H", "price_desc"),
+        }),
         "Doorzo",
     );
+addColumnO(
+    ([name_japanese, name, mfc]) => ({
+        N: getDoorzoLink(name_japanese, minPrice, maxPrice, "N"),
+        L: getDoorzoLink(name_japanese, minPrice, maxPrice, "L", "price_asc"),
+        H: getDoorzoLink(name_japanese, minPrice, maxPrice, "H", "price_desc"),
+    }),
+    "Doorzo",
+);
 
-    addColumnS(
-        ([name_japanese, name, mfc]) => [
-            getJSubcultureLink(name_japanese, minPrice, maxPrice, "N", 0),
-            getJSubcultureLink(name_japanese, minPrice, maxPrice, "L", 2),
-            getJSubcultureLink(name_japanese, minPrice, maxPrice, "H", 1),
-        ],
-        ["N", "L", "H"],
-        "Mercari",
-    );
+addColumnO(
+    ([name_japanese, name, mfc]) => ({
+        // N: getJSubcultureLink(name_japanese, minPrice, maxPrice, "N", 0),
+        L: getJSubcultureLink(name_japanese, minPrice, maxPrice, "L", 2),
+        H: getJSubcultureLink(name_japanese, minPrice, maxPrice, "H", 1),
+    }),
+    "Merca",
+);
 
-    addColumnS(
-        ([name_japanese, name, mfc]) => [
-            getJSubcultureFleaMarketLink(
-                name_japanese,
-                minPrice,
-                maxPrice,
-                "N",
-                1,
-            ),
-            getJSubcultureFleaMarketLink(
-                name_japanese,
-                minPrice,
-                maxPrice,
-                "L",
-                2,
-            ),
-            getJSubcultureFleaMarketLink(
-                name_japanese,
-                minPrice,
-                maxPrice,
-                "H",
-                3,
-            ),
-        ],
-        ["N", "L", "H"],
-        "Flea",
-    );
+addColumnO(
+    ([name_japanese, name, mfc]) => ({
+        // N: getJSubcultureFleaMarketLink(name_japanese, minPrice, maxPrice, "N", 1),
+        L: getJSubcultureFleaMarketLink(name_japanese, minPrice, maxPrice, "L", 2),
+        H: getJSubcultureFleaMarketLink(name_japanese, minPrice, maxPrice, "H", 3),
+    }),
+    "Flea",
+);
 
-    addColumnS(
-        ([name_japanese, name, mfc]) => [
-            getJSubcultureAuctionLink(
-                name_japanese,
-                isFigure,
-                minPrice,
-                maxPrice,
-                "N",
-                "22",
-            ),
-            // getJSubcultureAuctionLink(
-            //     name_japanese,
-            //     isFigure,
-            //     minPrice,
-            //     maxPrice,
-            //     "L",
-            //     "01",
-            // ),
-            // getJSubcultureAuctionLink(
-            //     name_japanese,
-            //     isFigure,
-            //     minPrice,
-            //     maxPrice,
-            //     "H",
-            //     "02",
-            // ),
-            getJSubcultureAuctionLink(
-                name_japanese,
-                isFigure,
-                minPrice,
-                maxPrice,
-                "B",
-                "03",
-            ),
-            getJSubcultureAuctionLink(
-                name_japanese,
-                isFigure,
-                minPrice,
-                maxPrice,
-                "E",
-                "05",
-            ),
-        ],
-        ["N", "B", "E"], //, "L", "H"
-        "Auction",
-    );
+addColumnO(
+    ([name_japanese, name, mfc]) => ({
+        N: getJSubcultureAuctionLink(
+            name_japanese, isFigure, minPrice, maxPrice, "N", "22",
+        ),
+        L: getJSubcultureAuctionLink(
+            name_japanese, isFigure, minPrice, maxPrice, "L", "01",
+        ),
+        // H: getJSubcultureAuctionLink(
+        //     name_japanese, isFigure, minPrice, maxPrice, "H", "02",
+        // ),
+        B: getJSubcultureAuctionLink(
+            name_japanese, isFigure, minPrice, maxPrice, "B", "03",
+        ),
+        E: getJSubcultureAuctionLink(
+            name_japanese, isFigure, minPrice, maxPrice, "E", "05",
+        ),
+    }),
+    "Auction",
+);
 
-    addColumnS(
-        ([name_japanese, name, mfc]) => [
-            getMarketplaceLink("olx", name_japanese, name, "OLX"),
-            getMarketplaceLink("shopee", name_japanese, name, "SHO"),
-            getMarketplaceLink("mercadolivre", name_japanese, name, "ML"),
-        ],
-        ["OLX", "SHO", "ML"],
-        "Brasil",
-    );
+addColumnO(
+    ([name_japanese, name, mfc]) => ({
+        OLX: getMarketplaceLink("olx", name_japanese, name, "OLX"),
+        SHO: getMarketplaceLink("shopee", name_japanese, name, "SHO"),
+        ML: getMarketplaceLink("mercadolivre", name_japanese, name, "ML"),
+    }),
+    "Brasil",
+);
 
-    addColumnS(
-        ([name_japanese, name, mfc]) => [
-            getMarketplaceLink("aliexpress", name_japanese, name, "ALI"),
-        ],
-        "ALI",
-    );
+addColumnO(
+    ([name_japanese, name, mfc]) => ({
+        ALI: getMarketplaceLink("aliexpress", name_japanese, name, "ALI"),
+    }),
+);
 
-    addColumnS(
-        ([name_japanese, name, mfc]) => [
-            getMarketplaceLink("ninningame", name_japanese, name, "NNG"),
-            getMarketplaceLink("solarisjapan", name_japanese, name, "SOL"),
-            getMarketplaceLink("biginjapan", name_japanese, name, "BIG"),
-            getMarketplaceLink("exfigure", name_japanese, name, "EX"),
-        ],
-        ["NNG", "SOL", "BIG", "EX"],
-    );
+addColumnO(
+    ([name_japanese, name, mfc]) => ({
+        NNG: getMarketplaceLink("ninningame", name_japanese, name, "NNG"),
+        SOL: getMarketplaceLink("solarisjapan", name_japanese, name, "SOL"),
+        BIG: getMarketplaceLink("biginjapan", name_japanese, name, "BIG"),
+        EX: getMarketplaceLink("exfigure", name_japanese, name, "EX"),
+    }),
+);
 
-    addColumnS(
-        ([name_japanese, name, mfc]) => [
-            getMarketplaceLink("mandarake", name_japanese, name, "MAN"),
-        ],
-        "MAN",
-    );
+addColumnO(
+    ([name_japanese, name, mfc]) => ({
+        MAN: getMarketplaceLink("mandarake", name_japanese, name, "MAN"),
+    }),
+);
 
     addColumn(([, name]) => [name], "Name");
     addColumn(
@@ -719,7 +478,7 @@ function createTable() {
     originalTable.parentNode.insertBefore(stickyWrapper, originalTable);
 
     Object.assign(originalTable.style, {
-        marginTop: "calc(var(--sticky-b) * -1)",
+        marginTop: "calc(var(--sticky-b) * -1 - 4px)",
     });
 
     const tbody = originalTable.querySelector("tbody");
@@ -799,42 +558,8 @@ function createTable() {
     }
     window.updateRowIndexes = updateRowIndexes;
 
+    const NAMESPACE = "figuretables";
 
-    const BASE_URL = "https://mantledb.sh/v2";
-    const NAMESPACE = "figuretables"; // Change this to your custom namespace
-
-    // SAVE: Creates or completely overwrites data at a path
-    async function dbSave(path, data) {
-        const response = await fetch(`${BASE_URL}/${NAMESPACE}/${path}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        });
-
-        if (!response.ok) {
-            throw new Error(
-                `Save failed with status ${response.status}: ${response.statusText}`,
-            );
-        }
-        return response.json();
-    }
-
-    // LOAD: Fetches data at a path. Returns null gracefully on 404.
-    async function dbLoad(path) {
-        const response = await fetch(`${BASE_URL}/${NAMESPACE}/${path}`);
-
-        if (response.status === 404) {
-            return null;
-        }
-
-        if (!response.ok) {
-            throw new Error(
-                `Load failed with status ${response.status}: ${response.statusText}`,
-            );
-        }
-
-        return response.json();
-    }
     const randomString = (
         length = 32, //"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     ) =>
@@ -849,9 +574,6 @@ function createTable() {
     const textUsername = document.createElement("input");
     if (!localStorage.hasOwnProperty("username"))
         localStorage.setItem("username", randomString(32));
-    textUsername.addEventListener("change", () =>
-        localStorage.setItem("username", textUsername.value),
-    );
     textUsername.addEventListener("input", () =>
         localStorage.setItem("username", textUsername.value),
     );
@@ -860,46 +582,32 @@ function createTable() {
 
     containerUserPass.appendChild(textUsername);
     const textPassword = document.createElement("input");
+    textPassword.type = "password";
     if (!localStorage.hasOwnProperty("password"))
         localStorage.setItem("password", randomString(32));
 
     textPassword.value = localStorage.getItem("password");
-    textPassword.addEventListener("change", () =>
-        localStorage.setItem("password", textPassword.value),
-    );
     textPassword.addEventListener("input", () =>
         localStorage.setItem("password", textPassword.value),
     );
     containerUserPass.appendChild(textPassword);
 
-
-    // Pure JavaScript PBKDF2 implementation (No Web Crypto required)
-    function getId(username, password) {
-        const salt = `my-app-v1:${username.trim().toLowerCase()}`;
-        
-        // Compute PBKDF2 using CryptoJS
-        const cfg = {
-            keySize: 256 / 32, // CryptoJS expects key size in 32-bit words (256 bits = 8 words)
-            iterations: 600000,
-            hasher: CryptoJS.algo.SHA256
-        };
-        
-        const derivedKey = CryptoJS.PBKDF2(password, salt, cfg);
-
-        // CryptoJS returns a WordArray object, converting it to a hex string is built-in
-        return derivedKey.toString(CryptoJS.enc.Hex);
-    }
-
     const containerButtons = document.createElement("div");
     containerButtons.className = "flex";
     document.body.appendChild(containerButtons);
+
+    const yieldToBrowser = () =>
+        new Promise((resolve) => setTimeout(resolve, 0));
 
     const buttonSave = document.createElement("button");
     buttonSave.innerText = "Save";
     buttonSave.addEventListener("click", async () => {
         try {
             buttonSave.innerText = "...";
+            await yieldToBrowser();
+
             await dbSave(
+                NAMESPACE,
                 await getId(textUsername.value, textPassword.value),
                 fromTable(),
             );
@@ -913,23 +621,56 @@ function createTable() {
 
     const buttonLoad = document.createElement("button");
     buttonLoad.innerText = "Load";
-    buttonLoad.addEventListener("click", async () => {
-        try {
-            buttonLoad.innerText = "...";
-            const data = await dbLoad(
-                await getId(textUsername.value, textPassword.value),
-            );
-            if (data) {
-                localStorage.setItem("table", JSON.stringify(data));
-                createTable();
+    buttonLoad.addEventListener("click", () => {
+        (async () => {
+            try {
+                buttonLoad.innerText = "...";
+                await yieldToBrowser();
+
+                const data = await dbLoad(
+                    NAMESPACE,
+                    await getId(textUsername.value, textPassword.value),
+                );
+                if (data) {
+                    localStorage.setItem("table", JSON.stringify(data));
+                    createTable();
+                } else {
+                    alert("Data is null");
+                }
+            } catch (e) {
+                alert(e.toString());
+            } finally {
+                buttonLoad.innerText = "Load";
             }
-        } catch (e) {
-            alert(e.toString());
-        } finally {
-            buttonLoad.innerText = "Load";
-        }
+        })();
     });
     containerButtons.appendChild(buttonLoad);
+
+    const locUrl = new URL(window.location.href);
+    const userParam = locUrl.searchParams.get("username");
+    const passParam = locUrl.searchParams.get("password");
+    if (userParam && passParam) {
+        localStorage.setItem("username", userParam);
+        localStorage.setItem("password", passParam);
+        locUrl.searchParams.delete("username");
+        locUrl.searchParams.delete("password");
+        window.location.href = locUrl.toString();
+    }
+
+    const buttonCopy = document.createElement("button");
+    buttonCopy.innerText = "Copy";
+    buttonCopy.style.flex = "unset";
+    buttonCopy.style.flexBasis = "40px";
+
+    buttonCopy.addEventListener("click", () => {
+        (async () => {
+            const url = new URL(window.location.href);
+            url.searchParams.set("username", textUsername.value);
+            url.searchParams.set("password", textPassword.value);
+            await navigator.clipboard.writeText(url.toString());
+        })();
+    });
+    containerButtons.appendChild(buttonCopy);
 
     function fromTable() {
         return [...tbody.querySelectorAll("tr.mytr")].map((tr) =>
