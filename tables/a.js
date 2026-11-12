@@ -265,9 +265,9 @@ function createTable() {
             const getValue = Object.values(obj);
 
             n.push(
-                ...getValue.map(({ url, text }, i) =>
+                ...getValue.map(({ url, text }, j) =>
                     url && text
-                        ? `<a href="${url}" aria-label="${[arr[i][1], names[i], group].join(" ").trim()}" data-microtip-position="top" role="tooltip">${text}</a>`
+                        ? `<a href="${url}" aria-label="${[arr[i][1], names[j], group].join(" ").trim()}" data-microtip-position="top" role="tooltip">${text}</a>`
                         : "",
                 ),
             );
