@@ -45,7 +45,7 @@ function getBuyeeLink(B4, A4, AG4, AH4, label, sort = "") {
         text: label,
     };
 }
-function getDoorzoLink(B4, minPrice, maxPrice, label, sort = "created_desc") {
+function getDoorzoLink(B4, minPrice, maxPrice, label, sort = "created_desc", websites='["mercari","rakuma","surugaya","paypay","rakuten","yahoo","mercari-auction"]') {
     if (!B4) return "";
 
     const params = new URLSearchParams({
@@ -53,7 +53,7 @@ function getDoorzoLink(B4, minPrice, maxPrice, label, sort = "created_desc") {
         sid: 81,
         identity: 100006,
         website:
-            '["mercari","rakuma","surugaya","paypay","rakuten","yahoo","mercari-auction"]',
+            websites,
         keywords: B4,
         priceMin: minPrice,
         priceMax: maxPrice,
@@ -323,6 +323,7 @@ function createTable() {
             N: getDoorzoLink(name_japanese, minPrice, maxPrice, "N"),
             L: getDoorzoLink(name_japanese, minPrice, maxPrice, "L", "price_asc"),
             H : getDoorzoLink(name_japanese, minPrice, maxPrice, "H", "price_desc"),
+            M : getDoorzoLink(name_japanese, minPrice, maxPrice, "M", "created_desc", `["mercari-auction"]`),
         }),
         "Doorzo",
     );
