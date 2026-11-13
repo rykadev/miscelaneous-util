@@ -45,15 +45,21 @@ function getBuyeeLink(B4, A4, AG4, AH4, label, sort = "") {
         text: label,
     };
 }
-function getDoorzoLink(B4, minPrice, maxPrice, label, sort = "created_desc", websites='["mercari","rakuma","surugaya","paypay","rakuten","yahoo","mercari-auction"]') {
+function getDoorzoLink(
+    B4,
+    minPrice,
+    maxPrice,
+    label,
+    sort = "created_desc",
+    websites = '["mercari","rakuma","surugaya","paypay","rakuten","yahoo","mercari-auction"]',
+) {
     if (!B4) return "";
 
     const params = new URLSearchParams({
         fid: 1328,
         sid: 81,
         identity: 100006,
-        website:
-            websites,
+        website: websites,
         keywords: B4,
         priceMin: minPrice,
         priceMax: maxPrice,
@@ -321,89 +327,152 @@ function createTable() {
     addColumnO(
         ([name_japanese, name, mfc]) => ({
             N: getDoorzoLink(name_japanese, minPrice, maxPrice, "N"),
-            L: getDoorzoLink(name_japanese, minPrice, maxPrice, "L", "price_asc"),
-            H : getDoorzoLink(name_japanese, minPrice, maxPrice, "H", "price_desc"),
-            M : getDoorzoLink(name_japanese, minPrice, maxPrice, "M", "created_desc", `["mercari-auction"]`),
+            L: getDoorzoLink(
+                name_japanese,
+                minPrice,
+                maxPrice,
+                "L",
+                "price_asc",
+            ),
+            H: getDoorzoLink(
+                name_japanese,
+                minPrice,
+                maxPrice,
+                "H",
+                "price_desc",
+            ),
+            M: getDoorzoLink(
+                name_japanese,
+                minPrice,
+                maxPrice,
+                "M",
+                "created_desc",
+                `["mercari-auction"]`,
+            ),
         }),
         "Doorzo",
     );
-addColumnO(
-    ([name_japanese, name, mfc]) => ({
-        N: getDoorzoLink(name_japanese, minPrice, maxPrice, "N"),
-        L: getDoorzoLink(name_japanese, minPrice, maxPrice, "L", "price_asc"),
-        H: getDoorzoLink(name_japanese, minPrice, maxPrice, "H", "price_desc"),
-    }),
-    "Doorzo",
-);
+    addColumnO(
+        ([name_japanese, name, mfc]) => ({
+            N: getDoorzoLink(name_japanese, minPrice, maxPrice, "N"),
+            L: getDoorzoLink(
+                name_japanese,
+                minPrice,
+                maxPrice,
+                "L",
+                "price_asc",
+            ),
+            H: getDoorzoLink(
+                name_japanese,
+                minPrice,
+                maxPrice,
+                "H",
+                "price_desc",
+            ),
+        }),
+        "Doorzo",
+    );
 
-addColumnO(
-    ([name_japanese, name, mfc]) => ({
-        // N: getJSubcultureLink(name_japanese, minPrice, maxPrice, "N", 0),
-        L: getJSubcultureLink(name_japanese, minPrice, maxPrice, "L", 2),
-        H: getJSubcultureLink(name_japanese, minPrice, maxPrice, "H", 1),
-    }),
-    "Merca",
-);
+    addColumnO(
+        ([name_japanese, name, mfc]) => ({
+            N: getJSubcultureLink(name_japanese, minPrice, maxPrice, "N", 0),
+            L: getJSubcultureLink(name_japanese, minPrice, maxPrice, "L", 2),
+            H: getJSubcultureLink(name_japanese, minPrice, maxPrice, "H", 1),
+        }),
+        "Merca",
+    );
 
-addColumnO(
-    ([name_japanese, name, mfc]) => ({
-        // N: getJSubcultureFleaMarketLink(name_japanese, minPrice, maxPrice, "N", 1),
-        L: getJSubcultureFleaMarketLink(name_japanese, minPrice, maxPrice, "L", 2),
-        H: getJSubcultureFleaMarketLink(name_japanese, minPrice, maxPrice, "H", 3),
-    }),
-    "Flea",
-);
+    addColumnO(
+        ([name_japanese, name, mfc]) => ({
+            N: getJSubcultureFleaMarketLink(
+                name_japanese,
+                minPrice,
+                maxPrice,
+                "N",
+                1,
+            ),
+            L: getJSubcultureFleaMarketLink(
+                name_japanese,
+                minPrice,
+                maxPrice,
+                "L",
+                2,
+            ),
+            H: getJSubcultureFleaMarketLink(
+                name_japanese,
+                minPrice,
+                maxPrice,
+                "H",
+                3,
+            ),
+        }),
+        "Flea",
+    );
 
-addColumnO(
-    ([name_japanese, name, mfc]) => ({
-        N: getJSubcultureAuctionLink(
-            name_japanese, isFigure, minPrice, maxPrice, "N", "22",
-        ),
-        L: getJSubcultureAuctionLink(
-            name_japanese, isFigure, minPrice, maxPrice, "L", "01",
-        ),
-        // H: getJSubcultureAuctionLink(
-        //     name_japanese, isFigure, minPrice, maxPrice, "H", "02",
-        // ),
-        B: getJSubcultureAuctionLink(
-            name_japanese, isFigure, minPrice, maxPrice, "B", "03",
-        ),
-        E: getJSubcultureAuctionLink(
-            name_japanese, isFigure, minPrice, maxPrice, "E", "05",
-        ),
-    }),
-    "Auction",
-);
+    addColumnO(
+        ([name_japanese, name, mfc]) => ({
+            N: getJSubcultureAuctionLink(
+                name_japanese,
+                isFigure,
+                minPrice,
+                maxPrice,
+                "N",
+                "22",
+            ),
+            L: getJSubcultureAuctionLink(
+                name_japanese,
+                isFigure,
+                minPrice,
+                maxPrice,
+                "L",
+                "01",
+            ),
+            // H: getJSubcultureAuctionLink(
+            //     name_japanese, isFigure, minPrice, maxPrice, "H", "02",
+            // ),
+            B: getJSubcultureAuctionLink(
+                name_japanese,
+                isFigure,
+                minPrice,
+                maxPrice,
+                "B",
+                "03",
+            ),
+            E: getJSubcultureAuctionLink(
+                name_japanese,
+                isFigure,
+                minPrice,
+                maxPrice,
+                "E",
+                "05",
+            ),
+        }),
+        "Auction",
+    );
 
-addColumnO(
-    ([name_japanese, name, mfc]) => ({
-        OLX: getMarketplaceLink("olx", name_japanese, name, "OLX"),
-        SHO: getMarketplaceLink("shopee", name_japanese, name, "SHO"),
-        ML: getMarketplaceLink("mercadolivre", name_japanese, name, "ML"),
-    }),
-    "Brasil",
-);
+    addColumnO(
+        ([name_japanese, name, mfc]) => ({
+            OLX: getMarketplaceLink("olx", name_japanese, name, "OLX"),
+            SHO: getMarketplaceLink("shopee", name_japanese, name, "SHO"),
+            ML: getMarketplaceLink("mercadolivre", name_japanese, name, "ML"),
+        }),
+        "Brasil",
+    );
 
-addColumnO(
-    ([name_japanese, name, mfc]) => ({
+    addColumnO(([name_japanese, name, mfc]) => ({
         ALI: getMarketplaceLink("aliexpress", name_japanese, name, "ALI"),
-    }),
-);
+    }));
 
-addColumnO(
-    ([name_japanese, name, mfc]) => ({
+    addColumnO(([name_japanese, name, mfc]) => ({
         NNG: getMarketplaceLink("ninningame", name_japanese, name, "NNG"),
         SOL: getMarketplaceLink("solarisjapan", name_japanese, name, "SOL"),
         BIG: getMarketplaceLink("biginjapan", name_japanese, name, "BIG"),
         EX: getMarketplaceLink("exfigure", name_japanese, name, "EX"),
-    }),
-);
+    }));
 
-addColumnO(
-    ([name_japanese, name, mfc]) => ({
+    addColumnO(([name_japanese, name, mfc]) => ({
         MAN: getMarketplaceLink("mandarake", name_japanese, name, "MAN"),
-    }),
-);
+    }));
 
     addColumn(([, name]) => [name], "Name");
     addColumn(
@@ -437,7 +506,7 @@ addColumnO(
             ${top2.map(([cell, colspan]) => `<th colspan="${colspan}" class="bolder">${cell}</th>`).join("\n")}
         </tr>
         <tr>
-            ${ths.map((cell, i) => `<th${bolder[i] ? ' class="bolder"' : ""}>${cell}</th>`).join("\n")}
+            ${ths.map((cell, i) => `<th class="column-${i}${bolder[i] ? " bolder" : ""}">${cell}</th>`).join("\n")}
         </tr>
     </thead>
     <tbody style="--total: ${data.length}">${data
@@ -445,7 +514,7 @@ addColumnO(
             return `<tr class="mytr"  draggable="true" style="--row: ${i};">${row
                 .map(
                     (cell, i) =>
-                        `<td${bolder[i] ? ' class="bolder"' : ""}${i < 3 ? ' contenteditable="true"' : ""}>${cell}</td>`,
+                        `<td class="column-${i}${bolder[i] ? " bolder" : ""}"${i < 3 ? ' contenteditable="true"' : ""}>${cell}</td>`,
                 )
                 .join("")}</tr>`;
         })
@@ -469,6 +538,12 @@ addColumnO(
     document.body.innerHTML = html;
 
     const originalTable = document.querySelector("table");
+    document.body.style.setProperty("--sticky-b", Math.ceil(originalTable.querySelector("thead").getBoundingClientRect().height) + "px")
+
+    const stickyWrapper2 = document.createElement("div");
+    stickyWrapper2.className = "po";
+    stickyWrapper2.style.height = Math.ceil(originalTable.getBoundingClientRect().height) + "px";
+
 
     const stickyWrapper = document.createElement("div");
     stickyWrapper.className = "sticky-header-wrapper";
@@ -476,11 +551,69 @@ addColumnO(
     const clonedTable = originalTable.cloneNode(true);
 
     stickyWrapper.appendChild(clonedTable);
-    originalTable.parentNode.insertBefore(stickyWrapper, originalTable);
+    stickyWrapper2.appendChild(stickyWrapper);
+    originalTable.parentNode.insertBefore(stickyWrapper2, originalTable);
 
-    Object.assign(originalTable.style, {
-        marginTop: "calc(var(--sticky-b) * -1 - 4px)",
-    });
+    for (let i = 0; i < 2; i++) {
+        const nameWrapper2 = document.createElement("div");
+        nameWrapper2.className = "po";
+        // nameWrapper2.style.height = "100%";
+        nameWrapper2.style.width =
+            Math.ceil(originalTable.getBoundingClientRect().width) + "px";
+
+        const nameWrapper = document.createElement("div");
+        nameWrapper.className = "sticky-name-wrapper";
+
+        const clonedTableN = originalTable.cloneNode(true);
+
+        nameWrapper.appendChild(clonedTableN);
+        nameWrapper2.appendChild(nameWrapper);
+        originalTable.parentNode.insertBefore(nameWrapper2, originalTable);
+
+        Object.assign(nameWrapper.style, {
+            top: "unset",
+            left: 0,
+            width:
+                Math.ceil(
+                    originalTable
+                        .querySelector(".column-1")
+                        .getBoundingClientRect().width,
+                ) + "px",
+            marginLeft:
+                Math.ceil(
+                    originalTable
+                        .querySelector(".column-0")
+                        .getBoundingClientRect().width,
+                ) + "px",
+        });
+
+        clonedTableN.style.marginLeft =
+            "-" +
+            Math.ceil(
+                originalTable.querySelector(".column-0").getBoundingClientRect()
+                    .width,
+            ) +
+            "px";
+
+        if(i == 1){
+            
+            Object.assign(nameWrapper.style, {
+                left: "0",
+                top: "0",
+                height: "var(--sticky-b)",
+                backgroundColor: "var(--header-bg)",
+                borderBottom: "var(--border)",
+            });
+
+        nameWrapper2.style.height =
+            Math.ceil(originalTable.getBoundingClientRect().height) + "px";
+
+        }
+    }
+
+    // Object.assign(originalTable.style, {
+    //     marginTop: "calc(var(--sticky-b) * -1 - 4px)",
+    // });
 
     const tbody = originalTable.querySelector("tbody");
 
