@@ -52,7 +52,7 @@ body {
     --bgColor: oklch(.8 .18 var(--bg));
     background-color: var(--bgColor);
 }
-.mytr:hover{
+.mytr.hover{
     background-color: color-mix(in oklab, var(--bgColor) 75%, white);
     
 }
@@ -85,15 +85,20 @@ a {
     top: 0;
     background-color: white;
 } */
-.column-1{
+.cell[data-column="1"]{
     --width: 180px;
     min-width: var(--width);
     max-width: var(--width);
 }
+
+/* .dragging .sticky-name-wrapper {
+    display: none !important;
+} */
+
 .sticky-name-wrapper > td {
     visibility: hidden;
 }
-.sticky-name-wrapper  .column-1 {
+.sticky-name-wrapper .cell[data-column="1"] {
     visibility: unset !important;
 }
 

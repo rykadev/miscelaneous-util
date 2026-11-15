@@ -506,15 +506,15 @@ function createTable() {
             ${top2.map(([cell, colspan]) => `<th colspan="${colspan}" class="bolder">${cell}</th>`).join("\n")}
         </tr>
         <tr>
-            ${ths.map((cell, i) => `<th class="column-${i}${bolder[i] ? " bolder" : ""}">${cell}</th>`).join("\n")}
+            ${ths.map((cell, i) => `<th data-column="${i}" class="cell${bolder[i] ? " bolder" : ""}">${cell}</th>`).join("\n")}
         </tr>
     </thead>
     <tbody style="--total: ${data.length}">${data
         .map((row, i) => {
-            return `<tr class="mytr"  draggable="true" style="--row: ${i};">${row
+            return `<tr class="mytr" data-row="${i}" draggable="true" style="--row: ${i};">${row
                 .map(
                     (cell, i) =>
-                        `<td class="column-${i}${bolder[i] ? " bolder" : ""}"${i < 3 ? ' contenteditable="true"' : ""}>${cell}</td>`,
+                        `<td data-column="${i}" class="cell${bolder[i] ? " bolder" : ""}"${i < 3 ? ' contenteditable="true"' : ""}>${cell}</td>`,
                 )
                 .join("")}</tr>`;
         })
@@ -576,13 +576,13 @@ function createTable() {
             width:
                 Math.ceil(
                     originalTable
-                        .querySelector(".column-1")
+                        .querySelector('.cell[data-column="1"]')
                         .getBoundingClientRect().width,
                 ) + "px",
             marginLeft:
                 Math.ceil(
                     originalTable
-                        .querySelector(".column-0")
+                        .querySelector('.cell[data-column="0"]')
                         .getBoundingClientRect().width,
                 ) + "px",
         });
@@ -590,7 +590,7 @@ function createTable() {
         clonedTableN.style.marginLeft =
             "-" +
             Math.ceil(
-                originalTable.querySelector(".column-0").getBoundingClientRect()
+                originalTable.querySelector('.cell[data-column="0"]').getBoundingClientRect()
                     .width,
             ) +
             "px";
@@ -661,20 +661,20 @@ function createTable() {
 
         const rect = target.getBoundingClientRect();
         const after = e.clientY > rect.top + rect.height / 2;
-        [...tbody.querySelectorAll("tr.mytr")].forEach((el) => {
+        [...document.querySelectorAll("tr.mytr")].forEach((el) => {
             el.style.borderTop = el.style.borderBottom = "";
         });
         t = after ? target.nextSibling : target;
-        if (t) t.style.borderTop = "4px solid #f00";
+        if (t) document.querySelectorAll(`.mytr[data-row="${t.dataset.row}"]`).forEach(el => el.style.borderTop = "4px solid #f00");
         if (t.previousElementSibling)
-            t.previousElementSibling.style.borderBottom = "4px solid #f00";
+            document.querySelectorAll(`.mytr[data-row="${t.previousElementSibling.dataset.row}"]`).forEach(el => el.style.borderBottom = "4px solid #f00");
 
         //
     });
 
     tbody.addEventListener("dragend", () => {
         document.body.classList.remove("dragging");
-        [...tbody.querySelectorAll("tr.mytr")].forEach((el) => {
+        [...document.querySelectorAll("tr.mytr")].forEach((el) => {
             el.style.borderTop = el.style.borderBottom = "";
         });
         if (t) tbody.insertBefore(draggedRow, t);
@@ -682,8 +682,26 @@ function createTable() {
         draggedRow = null;
 
         save();
-        updateRowIndexes();
+        createTable();
+        // updateRowIndexes();
     });
+
+
+
+
+    document.querySelectorAll('.mytr[data-row]').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            document.querySelectorAll(`.mytr[data-row="${el.dataset.row}"]`)
+                .forEach(e => e.classList.add('hover'));
+        });
+
+        el.addEventListener('mouseleave', () => {
+            document.querySelectorAll(`.mytr[data-row="${el.dataset.row}"]`)
+                .forEach(e => e.classList.remove('hover'));
+        });
+    });
+
+    
 
     function updateRowIndexes() {
         [...tbody.children].forEach((tr, i) => {
