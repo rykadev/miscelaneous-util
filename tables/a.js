@@ -1,5 +1,9 @@
 console.log(new Date());
 
+function objectFilter(obj, cond){
+    return Object.fromEntries(Object.entries(obj).filter(cond))
+}
+
 function getLink(name, mfc) {
     if (!mfc) {
         if (!name) return "";
@@ -221,6 +225,15 @@ function getMarketplaceLink(site, B3, C3, label) {
 }
 
 function createTable() {
+    const SAVEKEY = {
+        USERNAME : "username",
+        PASSWORD : "password",
+        MINPRICE : "minPrice",
+        MAXPRICE : "maxPrice",
+        TABLE : "table",
+    };
+
+
     document.body.innerHTML = "";
     let arr = [
         [
@@ -231,7 +244,7 @@ function createTable() {
         ["", "", ""],
     ];
     try {
-        arr = JSON.parse(localStorage.getItem("table")) ?? arr;
+        arr = JSON.parse(localStorage.getItem(SAVEKEY.TABLE)) ?? arr;
     } catch (e) {
         console.error(e);
     }
@@ -242,8 +255,8 @@ function createTable() {
     }
 
     const isFigure = true;
-    const minPrice = 0;
-    const maxPrice = 20000;
+    let minPrice = parseInt(localStorage.getItem(SAVEKEY.MINPRICE))  || 0;
+    let maxPrice = parseInt(localStorage.getItem(SAVEKEY.MAXPRICE))  || 20000;
 
     let data = arr.map((n) => []);
     const top2 = [];
@@ -483,7 +496,7 @@ function createTable() {
     );
     addColumn(
         ([, name]) => [
-            `<button onclick="this.parentElement.parentElement.remove(); updateRowIndexes(); save();">X</button>`,
+            `<button onclick="removeRow(this.parentElement.parentElement.dataset.row); ">X</button>`,
         ],
         `<button onclick="createTable();">↻</button>`,
     );
@@ -532,7 +545,7 @@ function createTable() {
                 .map((td) => td.textContent),
         );
         const json = JSON.stringify(table);
-        localStorage.setItem("table", json);
+        localStorage.setItem(SAVEKEY.TABLE, json);
     });
 
     document.body.innerHTML = html;
@@ -720,27 +733,37 @@ function createTable() {
             () => "abcdefghijklmnopqrstuvwxyz"[(Math.random() * 52) | 0],
         ).join("");
 
-    const containerUserPass = document.createElement("div");
-    containerUserPass.className = "flex";
+    function containerTexts(n){
+        const containerUserPass = document.createElement("div");
+        containerUserPass.className = "flex";
+
+        return [containerUserPass, ...[...new Array(n)].map((_, i) => {
+
+            const textUsername = document.createElement("input");
+            containerUserPass.appendChild(textUsername);
+            return textUsername
+        })]
+    }
+    
+    const [containerUserPass, textUsername, textPassword] = containerTexts(2);
+
     document.body.appendChild(containerUserPass);
-    const textUsername = document.createElement("input");
-    if (!localStorage.hasOwnProperty("username"))
-        localStorage.setItem("username", randomString(32));
+    
+    if (!localStorage.hasOwnProperty(SAVEKEY.USERNAME))
+        localStorage.setItem(SAVEKEY.USERNAME, randomString(32));
     textUsername.addEventListener("input", () =>
-        localStorage.setItem("username", textUsername.value),
+        localStorage.setItem(SAVEKEY.USERNAME, textUsername.value),
     );
+    textUsername.value = localStorage.getItem(SAVEKEY.USERNAME);
 
-    textUsername.value = localStorage.getItem("username");
 
-    containerUserPass.appendChild(textUsername);
-    const textPassword = document.createElement("input");
     textPassword.type = "password";
-    if (!localStorage.hasOwnProperty("password"))
-        localStorage.setItem("password", randomString(32));
+    if (!localStorage.hasOwnProperty(SAVEKEY.PASSWORD))
+        localStorage.setItem(SAVEKEY.PASSWORD, randomString(32));
 
-    textPassword.value = localStorage.getItem("password");
+    textPassword.value = localStorage.getItem(SAVEKEY.PASSWORD);
     textPassword.addEventListener("input", () =>
-        localStorage.setItem("password", textPassword.value),
+        localStorage.setItem(SAVEKEY.PASSWORD, textPassword.value),
     );
     containerUserPass.appendChild(textPassword);
 
@@ -758,6 +781,7 @@ function createTable() {
             buttonSave.innerText = "...";
             await yieldToBrowser();
 
+            // localStorage.setItem(SAVEKEY.TABLE, JSON.stringify(data));
             await dbSave(
                 NAMESPACE,
                 await getId(textUsername.value, textPassword.value),
@@ -784,7 +808,7 @@ function createTable() {
                     await getId(textUsername.value, textPassword.value),
                 );
                 if (data) {
-                    localStorage.setItem("table", JSON.stringify(data));
+                    localStorage.setItem(SAVEKEY.TABLE, JSON.stringify(data));
                     createTable();
                 } else {
                     alert("Data is null");
@@ -802,8 +826,8 @@ function createTable() {
     const userParam = locUrl.searchParams.get("username");
     const passParam = locUrl.searchParams.get("password");
     if (userParam && passParam) {
-        localStorage.setItem("username", userParam);
-        localStorage.setItem("password", passParam);
+        localStorage.setItem(SAVEKEY.USERNAME, userParam);
+        localStorage.setItem(SAVEKEY.PASSWORD, passParam);
         locUrl.searchParams.delete("username");
         locUrl.searchParams.delete("password");
         window.location.href = locUrl.toString();
@@ -823,6 +847,23 @@ function createTable() {
         })();
     });
     containerButtons.appendChild(buttonCopy);
+
+
+    
+    const [containerMinMax, textMin, textMax] = containerTexts(2);
+    document.body.appendChild(containerMinMax);
+    [textMin, textMax].forEach(el => {
+        el.type = "number";
+    })
+    textMin.value = minPrice;
+    textMin.addEventListener("input", () =>
+        localStorage.setItem("minPrice", textMin.value),
+    );
+
+    textMax.value = maxPrice;
+    textMax.addEventListener("input", () =>
+        localStorage.setItem("maxPrice", textMax.value),
+    );
 
     function fromTable() {
         return [...tbody.querySelectorAll("tr.mytr")].map((tr) =>
@@ -850,5 +891,11 @@ function createTable() {
         createTable();
     }
     window.addRow = addRow;
+    function removeRow(index) {
+        document.querySelectorAll(`.mytr[data-row="${index}"]`).forEach(el => el.remove());
+        updateRowIndexes();
+        save();
+    }
+    window.removeRow = removeRow;
 }
 createTable();
